@@ -3,18 +3,21 @@ import Layout from '../layouts/Layout.astro';
 import { getPosts } from 'lib/api';
 
 let posts = await getPosts();
-console.log(posts.length);
+console.log(posts);
 ---
 
 <Layout title="CSS Tricks">
     {
         posts.map((post) => (
             <>
-                <h1
-                    class="font-bold text-2xl text-cyan-500 hover:decoration-dashed hover:underline"
-                    set:html="post.title.rendered"
-                />
-                <p set:html="post.excerpt.rendered" />
+                <a href={`/news/${post.slug}`}>
+                    <h1
+                        class="font-bold text-2xl text-cyan-500 hover:decoration-dashed hover:underline"
+                        set:html="post.title.rendered"
+                    />
+                </a>
+                <p set:html="post.content.rendered" />
+                <a href={`/news/${post.slug}`}> Learn more </a>
             </>
         ))
     }
