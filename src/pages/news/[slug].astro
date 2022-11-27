@@ -7,7 +7,7 @@ const post = await getPost(slug);
 import Layout from '~/layouts/Layout.astro';
 ---
 
-<Layout title="{post.title.rendered}">
+<Layout title={post.title.rendered}>
     <div class="flex flex-col p-10">
         <div class="mb-5 text-4xl font-bold" set:html="post.title.rendered" />
         <article set:html="post.content.rendered" class="prose lg:prose-xl" />
