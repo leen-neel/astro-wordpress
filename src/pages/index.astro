@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import { getPosts } from 'lib/api';
 
 let posts = await getPosts();
-console.log(posts);
 ---
 
 <Layout title="Dinos!">
