@@ -36,9 +36,11 @@ let postExcerpt = (post) => {
                             </a>
                             <p set:html={postExcerpt(post)} />
                             <div class="card-actions justify-end">
-                                <button class="btn btn-primary">
-                                    Learn more
-                                </button>
+                                <a href={`/dinos/${post.slug}/`}>
+                                    <button class="btn btn-primary">
+                                        Learn more
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
