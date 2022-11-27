@@ -1,13 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Card from '~/components/Card.astro';
 import { getPosts } from 'lib/api';
 
 let posts = await getPosts();
-
-let postExcerpt = (post) => {
-    let content = post.content.rendered.split('.');
-    return `${content[0]}. ${content[1]}...`;
-};
 ---
 
 <Layout title="Dinos!">
@@ -17,33 +13,7 @@ let postExcerpt = (post) => {
         {
             posts.map((post) => (
                 <>
-                    <div class="card w-full bg-base-100 shadow-xl rounded-t-md md:w-96">
-                        <figure class="bg-white">
-                            <img
-                                src={
-                                    post._embedded['wp:featuredmedia']['0']
-                                        .source_url
-                                }
-                                alt="Shoes"
-                            />
-                        </figure>
-                        <div class="card-body bg-gray-700 rounded-b-md">
-                            <a href={`/dinos/${post.slug}/`}>
-                                <h2
-                                    class="card-title hover:underline hover:decoration-wavy decoration-red-600 decoration-4"
-                                    set:html="post.title.rendered"
-                                />
-                            </a>
-                            <p set:html={postExcerpt(post)} />
-                            <div class="card-actions justify-end">
-                                <a href={`/dinos/${post.slug}/`}>
-                                    <button class="btn btn-primary">
-                                        Learn more
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <Card {post} />
                 </>
             ))
         }

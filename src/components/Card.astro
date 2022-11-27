@@ -1,62 +1,34 @@
 ---
 export interface Props {
-	title: string;
-	body: string;
-	href: string;
+    post: {};
 }
 
-const { href, title, body } = Astro.props;
+let postExcerpt = (post) => {
+    let content = post.content.rendered.split('.');
+    return `${content[0]}. ${content[1]}...`;
+};
+const { post } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 0.15rem;
-		background-color: white;
-		background-image: var(--accent-gradient);
-		background-size: 400%;
-		border-radius: 0.5rem;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	}
-
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: 1rem 1.3rem;
-		border-radius: 0.35rem;
-		color: #111;
-		background-color: white;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-		color: #444;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent));
-	}
-</style>
+<div class="card w-full bg-base-100 shadow-xl rounded-t-md md:w-96">
+    <figure class="bg-white">
+        <img
+            src={post._embedded['wp:featuredmedia']['0'].source_url}
+            alt="Shoes"
+        />
+    </figure>
+    <div class="card-body bg-gray-700 rounded-b-md">
+        <a href={`/dinos/${post.slug}/`}>
+            <h2
+                class="card-title hover:underline hover:decoration-wavy decoration-red-600 decoration-4"
+                set:html="post.title.rendered"
+            />
+        </a>
+        <p set:html={postExcerpt(post)} />
+        <div class="card-actions justify-end">
+            <a href={`/dinos/${post.slug}/`}>
+                <button class="btn btn-primary"> Learn more</button>
+            </a>
+        </div>
+    </div>
+</div>
