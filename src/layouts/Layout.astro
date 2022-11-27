@@ -16,7 +16,13 @@ const { title } = Astro.props;
         <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
     </head>
-    <body class="bg-slate-800">
+    <body>
+        <div class="navbar bg-slate-800">
+            <a class="btn btn-ghost normal-case text-xl text-red-600"
+                >Dinos! 🦖</a
+            >
+        </div>
+
         <slot />
     </body>
 </html>
