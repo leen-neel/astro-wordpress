@@ -1,0 +1,14 @@
+{
+    "extends": "astro/tsconfigs/strict",
+    "compilerOptions": {
+        // Needed for TypeScript intellisense in the template inside Vue files
+        "jsx": "preserve",
+        "baseUrl": ".",
+        "allowJs": true,
+        "types": ["astro/client"],
+        "paths": {
+            "~/*": ["src/*"],
+            "lib/*": ["lib/*"]
+        }
+    }
+}
