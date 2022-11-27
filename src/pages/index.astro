@@ -3,6 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import { getPosts } from 'lib/api';
 
 let posts = await getPosts();
+
+let postExcerpt = (post) => {
+    let content = post.content.rendered.split('.');
+    return `${content[0]}. ${content[1]}...`;
+};
 ---
 
 <Layout title="Dinos!">
@@ -29,9 +34,7 @@ let posts = await getPosts();
                                     set:html="post.title.rendered"
                                 />
                             </a>
-                            <p>
-                                If a dog chews shoes whose shoes does he choose?
-                            </p>
+                            <p set:html={postExcerpt(post)} />
                             <div class="card-actions justify-end">
                                 <button class="btn btn-primary">
                                     Learn more
