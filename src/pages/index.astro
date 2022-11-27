@@ -6,19 +6,42 @@ let posts = await getPosts();
 console.log(posts);
 ---
 
-<Layout title="CSS Tricks">
-    {
-        posts.map((post) => (
-            <>
-                <a href={`/dinos/${post.slug}`}>
-                    <h1
-                        class="font-bold text-2xl text-cyan-500 hover:decoration-dashed hover:underline"
-                        set:html="post.title.rendered"
-                    />
-                </a>
-                <p set:html="post.content.rendered" />
-                <a href={`/dinos/${post.slug}`}> Learn more </a>
-            </>
-        ))
-    }
+<Layout title="Dinos!">
+    <section
+        class="p-2 grid gap-4 overflow-hidden grid-cols-1 place-items-center md:grid-cols-3"
+    >
+        {
+            posts.map((post) => (
+                <>
+                    <div class="card w-full bg-base-100 shadow-xl rounded-t-md md:w-96">
+                        <figure class="bg-white">
+                            <img
+                                src={
+                                    post._embedded['wp:featuredmedia']['0']
+                                        .source_url
+                                }
+                                alt="Shoes"
+                            />
+                        </figure>
+                        <div class="card-body bg-gray-700 rounded-b-md">
+                            <a href={`/dinos/${post.slug}/`}>
+                                <h2
+                                    class="card-title hover:underline hover:decoration-wavy decoration-red-600 decoration-4"
+                                    set:html="post.title.rendered"
+                                />
+                            </a>
+                            <p>
+                                If a dog chews shoes whose shoes does he choose?
+                            </p>
+                            <div class="card-actions justify-end">
+                                <button class="btn btn-primary">
+                                    Learn more
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            ))
+        }
+    </section>
 </Layout>

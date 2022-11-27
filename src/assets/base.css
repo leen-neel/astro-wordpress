@@ -6,6 +6,10 @@ h2 {
     @apply text-3xl font-extrabold;
 }
 
+p {
+    @apply mt-2;
+}
+
 /* Scroll bar */
 ::-webkit-scrollbar {
     width: 12px;
