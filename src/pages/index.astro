@@ -10,14 +10,14 @@ console.log(posts);
     {
         posts.map((post) => (
             <>
-                <a href={`/news/${post.slug}`}>
+                <a href={`/dinos/${post.slug}`}>
                     <h1
                         class="font-bold text-2xl text-cyan-500 hover:decoration-dashed hover:underline"
                         set:html="post.title.rendered"
                     />
                 </a>
                 <p set:html="post.content.rendered" />
-                <a href={`/news/${post.slug}`}> Learn more </a>
+                <a href={`/dinos/${post.slug}`}> Learn more </a>
             </>
         ))
     }

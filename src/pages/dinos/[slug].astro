@@ -2,14 +2,35 @@
 import { getPost } from 'lib/api';
 
 const { slug } = Astro.params;
-const post = await getPost(slug);
+const dino = await getPost(slug);
 
 import Layout from '~/layouts/Layout.astro';
 ---
 
-<Layout title={post.title.rendered}>
-    <div class="flex flex-col p-10">
-        <div class="mb-5 text-4xl font-bold" set:html="post.title.rendered" />
-        <article set:html="post.content.rendered" class="prose lg:prose-xl" />
-    </div>
+<Layout title={dino.title.rendered}>
+    <section class="w-full p-4">
+        <figure class="bg-white flex justify-center rounded-sm">
+            <img
+                src={dino._embedded['wp:featuredmedia']['0'].source_url}
+                alt={dino.title}
+            />
+        </figure>
+
+        <div class="bg-slate-700 p-5 rounded-sm my-2">
+            <h2>{dino.title.rendered}</h2>
+        </div>
+        <div class="flex flex-col lg:flex-row">
+            <div class="bg-slate-700 p-5 rounded-md my-2 w-full">
+                <h3 class="text-4xl font-extrabold">Info</h3>
+                <p><strong>Size:</strong> {dino.acf.size}</p>
+                <p><strong>Weight:</strong> {dino.acf.weight}</p>
+                <p><strong>Habitat:</strong> {dino.acf.habitat}</p>
+            </div>
+
+            <article
+                class="text-elipsis overflow-hidden lg:p-3"
+                set:html={dino.content.rendered}
+            />
+        </div>
+    </section>
 </Layout>

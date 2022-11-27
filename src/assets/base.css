@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h2 {
+    @apply text-3xl font-extrabold;
+}
+
+/* Scroll bar */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background: #42536b;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #34445a;
+}
+::-webkit-scrollbar-track {
+    background-color: #1f2937;
+}
