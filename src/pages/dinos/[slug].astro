@@ -1,10 +1,21 @@
 ---
-import { getPost } from 'lib/api';
+import { getPost, getPosts } from 'lib/api';
 
 const { slug } = Astro.params;
 const dino = await getPost(slug);
 
 import Layout from '~/layouts/Layout.astro';
+
+export async function getStaticPaths() {
+	let dinos = await getPosts();
+
+	return dinos.map((post) => {
+		return {
+			params: { slug: post.slug },
+			props: { post: post },
+		};
+	});
+}
 ---
 
 <Layout title={dino.title.rendered}>
