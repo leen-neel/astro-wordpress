@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '~/components/Card.astro';
-import { getPosts } from 'lib/api';
+import { getPosts } from '../../lib/api';
 
 let posts = await getPosts();
 ---

@@ -1,5 +1,5 @@
 ---
-import { getPost, getPosts } from 'lib/api';
+import { getPost, getPosts } from '../../../lib/api';
 
 const { slug } = Astro.params;
 const dino = await getPost(slug);
@@ -7,14 +7,14 @@ const dino = await getPost(slug);
 import Layout from '~/layouts/Layout.astro';
 
 export async function getStaticPaths() {
-	let dinos = await getPosts();
+    let dinos = await getPosts();
 
-	return dinos.map((post) => {
-		return {
-			params: { slug: post.slug },
-			props: { post: post },
-		};
-	});
+    return dinos.map((post) => {
+        return {
+            params: { slug: post.slug },
+            props: { post: post },
+        };
+    });
 }
 ---
 
@@ -31,7 +31,7 @@ export async function getStaticPaths() {
             <h2>{dino.title.rendered}</h2>
         </div>
         <div class="flex flex-col lg:flex-row">
-            <div class="bg-slate-700 p-5 rounded-md my-2 w-full">
+            <div class="bg-slate-700 p-5 rounded-md my-2 w-1/2">
                 <h3 class="text-4xl font-extrabold">Info</h3>
                 <p><strong>Size:</strong> {dino.acf.size}</p>
                 <p><strong>Weight:</strong> {dino.acf.weight}</p>
