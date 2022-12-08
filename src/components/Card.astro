@@ -14,7 +14,7 @@ const { post } = Astro.props;
     <figure class="bg-white">
         <img
             src={post._embedded['wp:featuredmedia']['0'].source_url}
-            alt="Shoes"
+            alt={post.title.rendered}
         />
     </figure>
     <div class="card-body bg-gray-700 rounded-b-md">
