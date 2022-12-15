@@ -1,8 +1,7 @@
 ---
-import { getPost, getPosts } from '../../../lib/api';
+import { getPosts } from '../../../lib/api';
 
 const { slug } = Astro.params;
-const dino = await getPost(slug);
 
 import Layout from '~/layouts/Layout.astro';
 
@@ -12,36 +11,46 @@ export async function getStaticPaths() {
     return dinos.map((post) => {
         return {
             params: { slug: post.slug },
-            props: { post: post },
+            props: {
+                title: post.title.rendered,
+                content: post.content.rendered,
+                image: post._embedded['wp:featuredmedia']['0'].source_url,
+
+                // Spreading the Custom Fields into a meta object
+                meta: {
+                    ...post.acf,
+                },
+            },
         };
     });
 }
+
+const { title, content, image, meta } = Astro.props;
 ---
 
-<Layout title={dino.title.rendered}>
+<Layout title={title}>
     <section class="w-full p-4">
         <figure class="bg-white flex justify-center rounded-sm">
-            <img
-                src={dino._embedded['wp:featuredmedia']['0'].source_url}
-                alt={dino.title}
-            />
+            <img src={image} alt={title} />
         </figure>
 
         <div class="bg-slate-700 p-5 rounded-sm my-2">
-            <h2>{dino.title.rendered}</h2>
+            <h2>{title}</h2>
         </div>
         <div class="flex flex-col lg:flex-row">
             <div class="bg-slate-700 p-5 rounded-md my-2 w-1/2">
                 <h3 class="text-4xl font-extrabold">Info</h3>
-                <p><strong>Size:</strong> {dino.acf.size}</p>
-                <p><strong>Weight:</strong> {dino.acf.weight}</p>
-                <p><strong>Habitat:</strong> {dino.acf.habitat}</p>
+                <p>
+                    <strong>Size:</strong>
+                    {meta.size.replace('.', ' with a')}
+                </p>
+                <p><strong>Weight:</strong> {meta.weight}</p>
+                <p><strong>Habitat:</strong> {meta.habitat}</p>
             </div>
 
-            <article
-                class="text-elipsis overflow-hidden lg:p-3"
-                set:html={dino.content.rendered}
-            />
+            <article class="text-elipsis overflow-hidden lg:p-3">
+                <Fragment set:html={content} />
+            </article>
         </div>
     </section>
 </Layout>
